@@ -1,11 +1,11 @@
 <div align="center">
 
-# 游驊益 · Stuart Yu
+# Stuart Yu
 
-**產品型全端開發者 — AI / LLM 應用，正投入 Web3**
+**資管背景 · 把想法用各種工具和 AI 串成能用的產品**
 
-一個人就能把點子從設計、開發到上線全部做完，並善用 AI 工具高速交付。<br>
-已獨立打造並上線多個 production 等級產品：多租戶 SaaS、AI 課程平台、24/7 雲端 AI bot。
+我是資訊管理系學生。我的強項不是某項高深技術，而是把一個想法——用現成的工具加上 AI 串起來——真的做成一個能上線、有人能用的東西。<br>
+這一年靠這個方式，我獨立做出並上線了好幾個小產品。
 
 [**寄信給我 →**](mailto:st950331@gmail.com)
 
@@ -13,27 +13,26 @@
 
 ---
 
-### 精選作品
+### 做過的東西
 
-| 專案 | 說明 | 連結 |
+| 專案 | 是什麼 | 連結 |
 | :-- | :-- | :-- |
-| **Tutorly** | 補習班管理 SaaS — 多租戶架構、租戶資料隔離、mobile-first | [tutoring-saas.vercel.app](https://tutoring-saas.vercel.app) |
-| **The Makers Camp** | AI 課程平台 ＋ 後台，自建影片轉字幕 pipeline（faster-whisper） | [themakerscamp.com](https://themakerscamp.com) |
-| **Discord AI 助理 bot** | 自架 Oracle Cloud VM，systemd ＋ cron 24/7 常駐，串接 LLM 做任務自動化 | 私有專案 |
+| **Tutorly** | 補習班用的管理系統；從資料庫、前後端到上線，自己一條龍串起來 | [tutoring-saas.vercel.app](https://tutoring-saas.vercel.app) |
+| **The Makers Camp** | 有後台的線上課程網站，含影片保護與自動轉字幕 | [themakerscamp.com](https://themakerscamp.com) |
+| **Discord AI 助理 bot** | 接 LLM 的 Discord 機器人，自己架在雲端主機上 24 小時跑 | 私有專案 |
 
-### 我能交付什麼
+### 我能幫上什麼
 
-社群 bot（Telegram / Discord）　·　Referral / 交易儀表板　·　AI 內容自動化　·　教材 → 會員制學習平台　·　高質感 landing page　·　客製工具
+把想法變成能動的東西——網站、後台、Discord / Telegram bot、串接各種 API、用 AI 做自動化。<br>
+最擅長的是：把現成工具和 AI 兜在一起，快速做出一個能用的第一版。
 
-### 技術
+### 用過的工具
 
-- **產品 / 全端** — `Next.js` `React` `TypeScript` `Supabase / Postgres` `Prisma` `Vercel` `Tailwind`
-- **AI / LLM** — `LLM 應用` `AI agent` `MCP` `prompt / pipeline` `faster-whisper`
-- **自動化 / 部署** — `Linux` `Oracle Cloud VM` `systemd · cron` `Discord / Telegram bot`
-- **Web3（學習中）** — `wagmi / viem` · 鏈上資料 · CEX / API
+平常用 `Next.js`、`Supabase`、`Vercel` 這類工具把東西做出來；也碰過 LLM 應用、雲端主機部署（Linux）、影片轉字幕等。<br>
+目前在學 Web3 相關的東西（`wagmi / viem`、鏈上資料、交易所 API）。
 
 ---
 
 <div align="center">
-<sub>國立中興大學 資訊管理學系（預計 2028 畢業）　·　2027 春赴大阪工業大學交換　·　日文 JLPT N2 應考中</sub>
+<sub>國立中興大學 資訊管理學系 · 2027 春赴大阪工業大學交換 · 日文 JLPT N2 應考中</sub>
 </div>
