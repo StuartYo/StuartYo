@@ -5,7 +5,7 @@
 **資管背景 · 把想法用各種工具和 AI 串成能用的產品**
 
 我是資訊管理系學生。我的強項不是某項高深技術，而是把一個想法——用現成的工具加上 AI 串起來——真的做成一個能上線、有人能用的東西。<br>
-這一年靠這個方式，我獨立做出並上線了好幾個小產品。
+這一年靠這個方式，我做出並上線了好幾個小產品。
 
 ### [作品集網站 · Portfolio →](https://portfolio-kappa-fawn-74.vercel.app)
 
@@ -19,7 +19,7 @@
 
 | 專案 | 是什麼 | 連結 |
 | :-- | :-- | :-- |
-| **Tutorly** | 補習班用的管理系統；從資料庫、前後端到上線，自己一條龍串起來 | [tutoring-saas.vercel.app](https://tutoring-saas.vercel.app) |
+| **Tutorly** | 補習班用的管理系統；從資料庫、前後端一路做到上線 | [tutoring-saas.vercel.app](https://tutoring-saas.vercel.app) |
 | **The Makers Camp** | 有後台的線上課程網站，含影片保護與自動轉字幕 | [themakerscamp.com](https://themakerscamp.com) |
 | **Discord AI 助理 bot** | 接 LLM 的 Discord 機器人，自己架在雲端主機上 24 小時跑 | 私有專案 |
 
