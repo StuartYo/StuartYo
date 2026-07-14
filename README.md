@@ -31,7 +31,7 @@
 ### 用過的工具
 
 平常用 `Next.js`、`Supabase`、`Vercel` 這類工具把東西做出來；也碰過 LLM 應用、雲端主機部署（Linux）、影片轉字幕等。<br>
-目前在學 Web3 相關的東西（`wagmi / viem`、鏈上資料、交易所 API）。
+Web3 剛開始學。
 
 ---
 
