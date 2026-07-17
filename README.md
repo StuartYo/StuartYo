@@ -7,7 +7,7 @@
 我是資訊管理系學生。我的強項不是某項高深技術，而是把一個想法——用現成的工具加上 AI 串起來——真的做成一個能上線、有人能用的東西。<br>
 這一年靠這個方式，我做出並上線了好幾個小產品。
 
-### [作品集網站 · Portfolio →](https://portfolio-kappa-fawn-74.vercel.app)
+### [作品集網站 · Portfolio →](https://stuartyo.vercel.app)
 
 [寄信給我](mailto:st950331@gmail.com)
 
