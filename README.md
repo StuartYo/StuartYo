@@ -19,7 +19,7 @@
 
 | 專案 | 是什麼 | 連結 |
 | :-- | :-- | :-- |
-| **Tutorly** | 補習班用的管理系統；從資料庫、前後端一路做到上線 | [tutoring-saas.vercel.app](https://tutoring-saas.vercel.app) |
+| **Tutorly** | 補習班用的管理系統；從資料庫、前後端一路做到上線 | [tutorly.tw](https://tutorly.tw) |
 | **The Makers Camp** | 有後台的線上課程網站，含影片保護與自動轉字幕 | [themakerscamp.com](https://themakerscamp.com) |
 | **Discord AI 助理 bot** | 接 LLM 的 Discord 機器人，自己架在雲端主機上 24 小時跑 | 私有專案 |
 
