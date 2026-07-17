@@ -21,7 +21,6 @@
 | :-- | :-- | :-- |
 | **Tutorly** | 補習班用的管理系統；從資料庫、前後端一路做到上線 | [tutorly.tw](https://tutorly.tw) |
 | **The Makers Camp** | 給國中青少年的 AI 課程：用 Claude 把自己的想法做出來＋AI 基礎素養（運作原理、辨別資訊真偽）；網站含後台、影片保護、自動轉字幕 | [themakerscamp.com](https://themakerscamp.com) |
-| **Trade Coach** | 給散戶的交易風控小工具：輸入一筆交易，即時算爆倉價／資金費／倉位風險，依內建規則給紀律與防詐提醒 | [trade-coach-delta.vercel.app](https://trade-coach-delta.vercel.app) |
 | **Discord AI 助理 bot** | 接 LLM 的 Discord 機器人，自己架在雲端主機上 24 小時跑 | 私有專案 |
 
 ### 我能幫上什麼
