@@ -5,7 +5,7 @@
 國立中興大學 資訊管理學系學生。<br>
 課餘做了幾個上線的小產品，過程大量使用 AI 開發工具。
 
-### [作品集網站 · Portfolio →](https://stuartyo.vercel.app)
+### [作品集網站 · Portfolio →](https://stuartyo.com)
 
 [寄信給我](mailto:st950331@gmail.com)
 
