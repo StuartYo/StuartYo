@@ -1,0 +1,115 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><style>
+@page{size:A4;margin:16mm 15mm}
+body{font-family:"WenQuanYi Zen Hei",sans-serif;font-size:11.2pt;line-height:1.7;color:#222}
+h1{font-size:24pt;margin:0 0 4px;color:#c15f3c}
+.sub{color:#666;margin-bottom:14px}
+h2{font-size:15pt;border-left:5px solid #c15f3c;padding-left:9px;margin:20px 0 6px;page-break-after:avoid}
+h3{font-size:12pt;margin:10px 0 2px;color:#8a3f24}
+p{margin:4px 0}ul,ol{margin:4px 0;padding-left:22px}li{margin:2px 0}
+.box{background:#fbf3ee;border:1px solid #efd6c8;border-radius:8px;padding:8px 12px;margin:8px 0;page-break-inside:avoid}
+.warn{background:#fff7e0;border-color:#f0dc9c}
+code,.p{background:#f1f1f1;border-radius:4px;padding:1px 5px;font-size:10.3pt}
+.pr{background:#f4f4f4;border-left:4px solid #999;padding:6px 10px;margin:6px 0;font-size:10.3pt;page-break-inside:avoid}
+table{border-collapse:collapse;width:100%;margin:6px 0;font-size:10.3pt;page-break-inside:avoid}
+td,th{border:1px solid #ddd;padding:5px 8px;vertical-align:top;text-align:left}th{background:#f6ece6}
+</style></head><body>
+
+<h1>Claude 上手指南</h1>
+<div class="sub">給生科系同學的 30 分鐘入門 ・ 用 Claude 應付大學課業</div>
+
+<div class="box"><b>先講重點（只記這 5 件事就夠）</b>
+<ol>
+<li>要從 <b>Chat</b> 切到 <b>Code</b> 介面，Code 才能真的「幫你動手」：讀你的資料夾、做網站、產 PDF/簡報。</li>
+<li>建一個專門放課業資料的資料夾，讓 Code session 只在那裡工作。</li>
+<li>那個資料夾只放課業內容，所以可以開 <b>Bypass permissions</b>，省掉一直按「允許」。</li>
+<li>日常用 <b>Sonnet 5.5</b> 就好，20 美金方案用量比較不會爆。</li>
+<li>Claude 不是答案機，是<b>教練</b>：叫它出題考你、講解、做成你看得懂的東西。</li>
+</ol></div>
+
+<h2>1. Chat 和 Code 差在哪</h2>
+<table><tr><th></th><th>Chat（聊天）</th><th>Code（程式碼）</th></tr>
+<tr><td>像什麼</td><td>一問一答的家教</td><td>坐在你電腦旁、會動手做事的助教</td></tr>
+<tr><td>能做</td><td>問問題、解釋、改文章</td><td>讀整個資料夾的講義、批次整理、產出 PDF / Word / PPT / Excel、直接建學習網站並上線</td></tr>
+<tr><td>適合</td><td>臨時問一個概念</td><td>整學期、整門課的長期工作</td></tr></table>
+<p>Claude 網頁或 App 左上角/上方有 <b>Chat / Code</b> 的切換，切到 Code 就是了。（介面文字偶爾會改版，找不到就問 Claude「Code 在哪」。）</p>
+
+<h2>2. 它能幫你做的事（生科系很適合）</h2>
+<p>你的科目可能有很多「圖」和「大量記憶」（細胞構造、代謝路徑、解剖、分類、實驗流程⋯）。這裡是我的猜測，實際請依你的課調整：</p>
+<ul>
+<li><b>講義變複習網站</b>：把老師的 PDF 丟進去，請它做成有測驗、可翻卡、可自我評分的互動網站，手機打開就能背。</li>
+<li><b>圖片記憶</b>：把課本圖做成「遮住標籤讓你猜」的閃卡；請它為難記的路徑編口訣、比喻、記憶宮殿。</li>
+<li><b>出題考你</b>：依範圍出選擇、填空、簡答題，錯的自動加強再考。</li>
+<li><b>整理筆記</b>：上課錄音逐字稿、投影片 → 條理清楚的重點筆記＋名詞表。</li>
+<li><b>實驗報告與數據</b>：整理數據、跑統計、畫圖（R / Python 它都會），並解釋每一步為什麼。</li>
+<li><b>讀文獻</b>：丟英文論文，請它用白話講摘要、方法、限制，再逐段問。</li>
+<li><b>報告與簡報</b>：產 Word、PPT、Excel，或直接接 Canva 排版。</li>
+</ul>
+<div class="box">想找靈感？可以直接問 Claude：「<span class="p">請針對我這門課，列出 5 種最適合我的學習方式，並各舉一個馬上能做的例子</span>」。也可以問：「<span class="p">Anthropic 官方有推薦哪些學習用法？</span>」，它會幫你查。</div>
+
+<h2>3. 建立你的「課業工作區」（最推薦的做法）</h2>
+<ol>
+<li>在桌面新增資料夾，例如 <code>大學課業</code>，裡面再分科目：<code>細胞生物學/</code>、<code>生化/</code>⋯，把講義、課本 PDF、考古題放進去。</li>
+<li>開一個<b>新的 Code session</b>，工作資料夾選那個 <code>大學課業</code>。</li>
+<li>把這份 PDF 丟給它，說：「這是我朋友給的入門指南，我是中興生科系學生，請先讀完，再照第 4 節幫我設定。」</li>
+<li>權限模式選 <b>Bypass permissions</b>。</li>
+</ol>
+<div class="box warn"><b>為什麼可以開 Bypass？為什麼要小心？</b><br>
+Bypass 代表 Claude 做事不再逐項問你。因為資料夾裡<b>只有課業檔案</b>，最壞也只是弄亂講義，風險很低，換來很快的工作流程。<br>
+守則：① 資料夾裡<b>不要放</b>密碼、身分證、私人照片；② 重要原檔<b>先備份一份</b>；③ 不要拿這個模式去開工作資料夾以外的東西。</div>
+
+<h2>4. 一開始要裝的東西（Skills 與 Connectors）</h2>
+<h3>Skills：讓 Claude 多一套專業本事</h3>
+<p>優先裝跟「文件處理」有關的官方 skill：</p>
+<ul>
+<li><b>pdf</b>：讀 PDF、合併、拆分、擷取圖片/表格、掃描檔 OCR。</li>
+<li><b>docx / pptx / xlsx</b>：Word 報告、簡報、Excel 資料表。</li>
+<li>學習類：<b>lecture-coach</b>（互動式講義讀書教練）、<b>learn</b>（教學、閃卡、測驗）。</li>
+</ul>
+<p>怎麼裝：直接對 Claude 說「<span class="p">請幫我搜尋並安裝適合大學生的官方 skill，特別是文件處理（PDF、Word、PPT、Excel）和學習類</span>」，它會列出來讓你確認。也可以在設定裡找 Skills / Plugins 自己加。</p>
+
+<h3>Connectors：把你的其他服務接進來</h3>
+<table><tr><th>服務</th><th>拿來做什麼</th><th>怎麼接</th></tr>
+<tr><td>Google 雲端硬碟</td><td>直接讀你的講義、筆記，產出存回去</td><td>設定 → Connectors → 選 Google Drive → 登入授權</td></tr>
+<tr><td>Canva</td><td>做海報、簡報、圖解，排版好看</td><td>設定 → Connectors → 選 Canva → 授權</td></tr>
+<tr><td>Vercel</td><td>把你做的複習網站一鍵<b>免費上線</b>，得到網址，手機平板都能開</td><td>先註冊 vercel.com 帳號，再到 Connectors 加 Vercel；或請 Claude 引導你部署</td></tr></table>
+<p>選單位置可能因改版而不同，找不到就直接問 Claude：「怎麼接 Google Drive？」它會一步步教你。</p>
+
+<h2>5. 選哪個模型</h2>
+<table><tr><th>模型</th><th>什麼時候用</th></tr>
+<tr><td><b>Sonnet 5.5（預設用這個）</b></td><td>日常 90% 的事：讀講義、出題、寫報告、做網站。速度快、用量省。</td></tr>
+<tr><td>Opus / 更大的模型</td><td>很難的推理、大型專案、複雜數據分析才切換。用量消耗比較快。</td></tr></table>
+<p>你的 <b>20 美金/月方案有用量上限</b>，全程用 Sonnet 5.5 比較不容易在期中考週爆量。省用量小技巧：一個主題開一個 session、不要在同一段對話塞太多不相關的事、需要時請它「摘要目前進度」再開新對話。</p>
+
+<h2>6. 為什麼值得用 Claude（跟 Gemini 比）</h2>
+<p>以下是大多數使用者的經驗，不是絕對，每個模型都會進步，也都會出錯：</p>
+<ul>
+<li><b>比較會承認「我不確定」</b>：遇到不懂的事比較不會硬掰，但仍<b>可能出錯</b>。</li>
+<li><b>長文件處理穩定</b>：整本講義、整篇論文可以一起丟，並能在長對話中維持前後一致。Code 模式更是直接在檔案裡工作，不必把內容全塞進對話窗。</li>
+<li><b>會動手做事</b>：不只給建議，而是直接生成檔案與網站。</li>
+</ul>
+<div class="box warn"><b>所以還是要驗證</b>：<br>
+① 專有名詞、數字、作用機制，拿<b>課本/講義</b>對一次；<br>
+② 叫它<b>標出出處</b>（「這是講義第幾頁？」）；<br>
+③ 覺得怪就反問「你確定嗎？依據是什麼？」；<br>
+④ 作業與報告的<b>學術誠信</b>要自己把關：讓它教你、幫你改，但內容與思考要是你自己的，並遵守課堂規定。</div>
+
+<h2>7. 第一個 session 可以直接貼的起手式</h2>
+<div class="pr">我是國立中興大學生命科學系的學生，想用 Claude 幫我讀書。這個資料夾放我所有課業資料。<br>
+請先：<br>
+1. 掃描資料夾，告訴我有哪些科目和檔案；<br>
+2. 幫我安裝適合大學生的官方 skill（PDF / Word / PPT / Excel 與學習類）；<br>
+3. 問我 3 個問題，了解我的學習習慣（例如比較會看圖還是看字、考試型態）；<br>
+4. 依照我的答案，推薦最適合我的 3 種學習方式，並先幫我對其中一科做出範例（例如互動複習網站）。<br>
+請用繁體中文，語氣簡單好懂。</div>
+
+<h2>8. 用得更好的 5 個習慣</h2>
+<ol>
+<li><b>給脈絡</b>：說明科目、考試範圍、老師的重點。</li>
+<li><b>叫它出題考你</b>，而不是只叫它整理：主動回想比重複閱讀有效。</li>
+<li><b>做完就存</b>：好用的網站、筆記存進資料夾，下學期還能用。</li>
+<li><b>大任務分步</b>：「先做大綱→我確認→再做完整」。</li>
+<li><b>卡住就直接問 Claude 怎麼用 Claude</b>：它很會教。</li>
+</ol>
+
+<p style="margin-top:18px;color:#888;font-size:9.5pt">本指南由 Claude 協助製作。介面與方案內容可能改版，以官方最新資訊為準。</p>
+</body></html>
