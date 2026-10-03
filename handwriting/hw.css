@@ -27,14 +27,15 @@ html, body { margin: 0; padding: 0; background: transparent; }
 .c-orange { color: var(--orange); } .c-purple { color: var(--purple); } .c-gray { color: var(--gray); }
 
 .deco { position: relative; display: inline-flex; }
+.deco > .in { display: inline-block; white-space: nowrap; }
 .deco > svg.d { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
 
 .frac { flex-direction: column; align-items: center; vertical-align: middle; font-size: 0.86em; margin: 0 0.12em; line-height: 1.12; }
 .frac > .num, .frac > .den { display: block; padding: 0 0.1em; }
 .frac > .fbar { display: block; align-self: stretch; height: 0.2em; }
 .sqrt { padding: 0.16em 0.06em 0 0.62em; margin-left: 0.04em; }
-.vec { padding-top: 0.36em; vertical-align: bottom; }
-.ov  { padding-top: 0.2em; vertical-align: bottom; }
+.vec { padding-top: 0.36em; vertical-align: baseline; }
+.ov  { padding-top: 0.2em; vertical-align: baseline; }
 .sup { font-size: 0.66em; vertical-align: 0.62em; display: inline-block; }
 .sub { font-size: 0.66em; vertical-align: -0.28em; display: inline-block; }
 .mat { padding: 0.05em 0.42em; vertical-align: middle; font-size: 0.9em; }

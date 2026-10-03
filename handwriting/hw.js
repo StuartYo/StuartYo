@@ -93,6 +93,8 @@
     return s;
   }
   function deco(cls, kind) { const d = el('span', 'deco ' + cls); d.dataset.deco = kind; return d; }
+  // decorated content sits in an inline-block so sup/sub keep working (flex items ignore vertical-align)
+  function wrapDeco(kind, src) { const d = deco(kind, kind), inner = el('span', 'in'); build(src, inner); d.appendChild(inner); return d; }
   function build(src, parent) {
     for (const n of parse(src)) parent.appendChild(node(n));
     return parent;
@@ -103,9 +105,7 @@
       case 'sp': { const s = el('span', 'sp'); s.style.width = (n.w + R(0.06)).toFixed(3) + 'em'; return s; }
       case 'frac': { const d = deco('frac', 'frac'); const a = el('span', 'num'), b = el('span', 'fbar'), c = el('span', 'den');
         build(n.args[0], a); build(n.args[1], c); d.append(a, b, c); return d; }
-      case 'sqrt': { const d = deco('sqrt', 'sqrt'); build(n.args[0], d); return d; }
-      case 'vec': { const d = deco('vec', 'vec'); build(n.args[0], d); return d; }
-      case 'ov': { const d = deco('ov', 'ov'); build(n.args[0], d); return d; }
+      case 'sqrt': case 'vec': case 'ov': return wrapDeco(n.t, n.args[0]);
       case 'sup': case 'sub': { const d = el('span', n.t); build(n.args[0], d); return d; }
       case 'mat': { const d = deco('mat', 'mat'); const g = el('span', 'grid');
         const rows = splitTop(n.args[0], '\\\\').map(r => splitTop(r, '&'));
@@ -116,7 +116,7 @@
         splitTop(n.args[0], '\\\\').forEach(r => { const l = el('span', 'ln'); build(r.trim(), l); d.appendChild(l); }); return d; }
       case 'red': case 'green': case 'orange': case 'blue': case 'purple': case 'gray': {
         const s = el('span', 'c-' + n.t); s.style.display = 'inline'; build(n.args[0], s); return s; }
-      case 'box': case 'circ': case 'ul': case 'wavy': case 'hl': { const d = deco(n.t, n.t); build(n.args[0], d); return d; }
+      case 'box': case 'circ': case 'ul': case 'wavy': case 'hl': return wrapDeco(n.t, n.args[0]);
       case 'ok': case 'ng': case 'ck': { const d = deco('mk', n.t); d.classList.add('c-' + (n.t === 'ck' ? 'green' : 'red')); return d; }
       case 'sum': { const d = deco('sum', 'none'); const hi = el('span', 'lim'), big = el('span', 'big'), lo = el('span', 'lim');
         build(n.args[1], hi); big.appendChild(glyph('Σ')); build(n.args[0], lo); d.append(hi, big, lo); return d; }

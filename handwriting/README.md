@@ -28,18 +28,25 @@
 ```bash
 ./fetch_fonts.sh                                   # 下載字型（OFL 授權，不放進 repo）
 pdftoppm -r 192 -png -f 2 -l 7 題本.pdf bg/h       # 預覽用的背景（192 dpi）
-node build.js preview exams/112-4-mathB/exam.js    # 輸出 prev/pN.png，對著題本檢查版面
+node build.js preview exams/112-4-mathB/exam.js    # 輸出 prev/pN.png，對著題本檢查版面（背景放別處就加 BGDIR=路徑）
 node build.js pdf exams/112-4-mathB/exam.js overlay.pdf
 python3 merge.py 題本.pdf overlay.pdf 輸出.pdf 2    # 2 = 手寫第一頁對到題本的第幾頁
 ```
 
 需要 Node + Playwright（Chromium）、Python 的 `pymupdf`。
 
-`lines.py` 會列出每頁每一行字的 y 範圍和 x 範圍，用來找空白區。`grid.py` 會把附圖切出來並加上座標格線，方便對準。
+`lines.py` 會列出每頁每一行字的 y 範圍和 x 範圍，用來找空白區。`grid.py` 會把附圖切出來並加上座標格線，方便對準；附圖裡的線條位置最好再用程式偵測確認，肉眼讀格線容易差一行。
+
+## 目前做過的詳解
+
+| 資料夾 | 題本 | 手寫頁 |
+| :-- | :-- | :-- |
+| `exams/112-4-mathB` | 112 學年度學測第四次模擬考 數學B（掃描檔） | PDF 第 2–7 頁 |
+| `exams/113-mathB` | 113 學年度學測 數學B（正式考題） | PDF 第 2–7 頁 |
 
 ## 寫一份新的詳解
 
-在 `exams/<名稱>/exam.js` 裡，每頁寫一個 `page(n, (pg, sk) => { ... })`。座標是 96 dpi 的 A4 像素（794 × 1123）。
+共用的小工具（`T`、`ANS`、`MANS`、`MK`、`GRID`）在 `helpers.js`。在 `exams/<名稱>/exam.js` 裡，每頁寫一個 `page(n, (pg, sk) => { ... })`。座標是 96 dpi 的 A4 像素（794 × 1123）。
 
 ```js
 ANS(pg, 10, 220, '(2)');                       // 左邊空白寫答案

@@ -17,7 +17,7 @@
     _p(d, o = {}) {
       const p = document.createElementNS(NS, 'path');
       p.setAttribute('d', d); p.setAttribute('fill', o.fill ? col(o.fill) : 'none');
-      p.setAttribute('stroke', o.fill && !o.stroke ? 'none' : col(o.c));
+      p.setAttribute('stroke', (o.fill && !o.stroke) || o.c === 'none' ? 'none' : col(o.c));
       p.setAttribute('stroke-width', o.w ?? 1.45);
       p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round');
       if (o.dash) p.setAttribute('stroke-dasharray', o.dash === true ? '4.5 3.5' : o.dash);
@@ -31,7 +31,19 @@
       return this._p(d, o);
     }
     arrow(x1, y1, x2, y2, o = {}) { return this.line(x1, y1, x2, y2, { ...o, arrow: true }); }
-    poly(pts, o = {}) { return this._p(HW.wpoly(pts, !!o.closed, o), o); }
+    poly(pts, o = {}) {
+      if (o.fill) {                         // filled shapes need one continuous closed path
+        let d = `M${pts[0][0] + R(0.4)} ${pts[0][1] + R(0.4)}`;
+        const P = pts.concat([pts[0]]);
+        for (let i = 1; i < P.length; i++) {
+          const [x1, y1] = P[i - 1], [x2, y2] = P[i];
+          d += ` Q${(x1 + x2) / 2 + R(0.6)} ${(y1 + y2) / 2 + R(0.6)} ${x2 + R(0.4)} ${y2 + R(0.4)}`;
+        }
+        this._p(d + ' Z', { ...o, w: 0, stroke: false, c: 'none' });
+        return o.w ? this._p(HW.wpoly(pts, true, o), { ...o, fill: null }) : this;
+      }
+      return this._p(HW.wpoly(pts, !!o.closed, o), o);
+    }
     curve(pts, o = {}) { return this._p(HW.wcurve(pts, o), o); }
     fn(f, x0, x1, map, o = {}) {           // plot y=f(x); map(x,y)->[px,py]
       const pts = [], n = o.n || 40;
