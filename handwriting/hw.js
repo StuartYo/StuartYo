@@ -5,7 +5,7 @@
  *   \red{..} \green{..} \orange{..} \blue{..} \purple{..} \gray{..}
  *   \box{..} (hand-drawn box)  \circ{..} (ellipse)  \ul{..}  \wavy{..}  \hl{..} (highlighter)
  *   \ok (red ○)  \ng (red ✗)  \ck (✓)  \sum{lo}{hi}  \stk{hi}{lo} (stacked small, e.g. C\stk{9}{4})
- *   \small{..} \big{..}   ~ = small space
+ *   \small{..} \big{..}   \up{..} (raised exponent after a tall item, e.g. a matrix inverse)   ~ = small space
  *   symbols: \pi \theta \alpha \beta \le \ge \ne \Ra(⇒) \LR(⇔) \to \times \cdot \pm \deg \ang \tri
  *            \perp \approx \infty \Sig \sig \mu \therefore \because \cdots \equiv \para(∥) \circdeg
  */
@@ -23,7 +23,7 @@
     amp: '&', bs: '\\', lb: '{', rb: '}', minus: '−', ldots: '…', sim: '∼', prime: '′', in: '∈', cap: '∩', cup: '∪',
     Delta: 'Δ', lam: 'λ', omega: 'ω', phi: 'φ' };
   const ARGS = { frac: 2, sqrt: 1, vec: 1, ov: 1, mat: 1, cases: 1, red: 1, green: 1, orange: 1, blue: 1, purple: 1,
-    gray: 1, box: 1, circ: 1, ul: 1, wavy: 1, hl: 1, sum: 2, stk: 2, small: 1, big: 1, sz: 2, ok: 0, ng: 0, ck: 0 };
+    gray: 1, up: 1, box: 1, circ: 1, ul: 1, wavy: 1, hl: 1, sum: 2, stk: 2, small: 1, big: 1, sz: 2, ok: 0, ng: 0, ck: 0 };
 
   // ---------- parser ----------
   function readGroup(s, i) {               // s[i] === '{' ; returns [raw, nextIndex]
@@ -121,7 +121,7 @@
       case 'sum': { const d = deco('sum', 'none'); const hi = el('span', 'lim'), big = el('span', 'big'), lo = el('span', 'lim');
         build(n.args[1], hi); big.appendChild(glyph('Σ')); build(n.args[0], lo); d.append(hi, big, lo); return d; }
       case 'stk': { const d = deco('stk', 'none'); const a = el('span'), b = el('span'); build(n.args[0], a); build(n.args[1], b); d.append(a, b); return d; }
-      case 'small': case 'big': { const s = el('span', n.t); build(n.args[0], s); return s; }
+      case 'small': case 'big': case 'up': { const s = el('span', n.t); build(n.args[0], s); return s; }
       case 'sz': { const s = el('span'); s.style.fontSize = n.args[0]; build(n.args[1], s); return s; }
     }
     return el('span');

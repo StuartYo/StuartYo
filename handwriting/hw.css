@@ -52,4 +52,5 @@ html, body { margin: 0; padding: 0; background: transparent; }
 .sum > .big { font-size: 1.35em; display: block; }
 .stk { flex-direction: column; vertical-align: middle; line-height: 1.0; font-size: 0.66em; margin-left: 0.04em; }
 .small { font-size: 0.82em; }
+.up { display: inline-block; font-size: 0.72em; position: relative; top: -1.3em; margin: 0 0.14em 0 0.08em; }
 .big { font-size: 1.25em; }
