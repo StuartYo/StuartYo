@@ -1,0 +1,54 @@
+/* Handwriting engine styles — page coordinates are 96-dpi CSS px on an A4 page */
+@font-face { font-family: 'HWLatin'; src: url('fonts/JasonHandwriting1.ttf');
+  unicode-range: U+0030-0039, U+0041-005A, U+0061-007A, U+0028-0029, U+002B, U+002C, U+002E, U+002F, U+003A, U+003B, U+003C, U+003D, U+003E, U+005B, U+005D, U+0027; }
+@font-face { font-family: 'HWCJK'; src: url('fonts/Yozai-Regular.ttf'); }
+
+:root {
+  --blue: #007AFF;   /* sampled from the user's own pen */
+  --red: #E8322B;
+  --green: #12A150;
+  --orange: #FF8A00;
+  --purple: #8E44DB;
+  --gray: #7A8699;
+  --hl: rgba(255, 214, 10, 0.38);
+}
+@page { size: 595.2pt 841.92pt; margin: 0; }
+html, body { margin: 0; padding: 0; background: transparent; }
+.page { position: relative; width: 793.6px; height: 1122.56px; overflow: hidden; page-break-after: always; break-after: page; }
+.page.preview { background-size: 100% 100%; background-color: #fff; }
+.layer { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+
+.hw { position: absolute; font-family: 'HWLatin', 'HWCJK', sans-serif; color: var(--blue); white-space: nowrap;
+  -webkit-text-stroke: 0.32px currentColor; line-height: 1.32; }
+.hw .ln { display: block; white-space: nowrap; }
+.g { display: inline-block; transform-origin: 50% 70%; }
+.sp { display: inline-block; width: 0.3em; }
+.c-blue { color: var(--blue); } .c-red { color: var(--red); } .c-green { color: var(--green); }
+.c-orange { color: var(--orange); } .c-purple { color: var(--purple); } .c-gray { color: var(--gray); }
+
+.deco { position: relative; display: inline-flex; }
+.deco > svg.d { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+
+.frac { flex-direction: column; align-items: center; vertical-align: middle; font-size: 0.86em; margin: 0 0.12em; line-height: 1.12; }
+.frac > .num, .frac > .den { display: block; padding: 0 0.1em; }
+.frac > .fbar { display: block; align-self: stretch; height: 0.2em; }
+.sqrt { padding: 0.16em 0.06em 0 0.62em; margin-left: 0.04em; }
+.vec { padding-top: 0.36em; vertical-align: bottom; }
+.ov  { padding-top: 0.2em; vertical-align: bottom; }
+.sup { font-size: 0.66em; vertical-align: 0.62em; display: inline-block; }
+.sub { font-size: 0.66em; vertical-align: -0.28em; display: inline-block; }
+.mat { padding: 0.05em 0.42em; vertical-align: middle; font-size: 0.9em; }
+.mat > .grid { display: inline-grid; column-gap: 0.7em; row-gap: 0.02em; align-items: center; justify-items: center; line-height: 1.25; }
+.cases { padding-left: 0.62em; vertical-align: middle; flex-direction: column; line-height: 1.3; }
+.box { padding: 0.06em 0.28em; margin: 0 0.1em; }
+.circ { padding: 0.08em 0.36em; margin: 0 0.06em; }
+.ul { padding-bottom: 0.14em; }
+.wavy { padding-bottom: 0.22em; }
+.hl { padding: 0 0.1em; }
+.mk { width: 0.95em; height: 0.95em; vertical-align: -0.12em; margin: 0 0.12em; }
+.sum { flex-direction: column; align-items: center; vertical-align: middle; line-height: 1; margin: 0 0.08em; }
+.sum > .lim { font-size: 0.6em; display: block; }
+.sum > .big { font-size: 1.35em; display: block; }
+.stk { flex-direction: column; vertical-align: middle; line-height: 1.0; font-size: 0.66em; margin-left: 0.04em; }
+.small { font-size: 0.82em; }
+.big { font-size: 1.25em; }

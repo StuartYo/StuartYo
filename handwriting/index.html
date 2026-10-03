@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>handwritten solutions</title>
+<link rel="stylesheet" href="hw.css">
+<script src="hw.js"></script><script src="draw.js"></script>
+</head><body>
+<script>
+  const params = new URLSearchParams(location.search);
+  const PREVIEW = params.has('bg');
+  const ONLY = params.get('only');
+  window.PAGES = [];
+  // pages register themselves: page(n, fn)
+  window.page = (n, fn) => PAGES.push({ n, fn });
+</script>
+<script>
+  (async () => {
+    await new Promise((ok, bad) => { const s = document.createElement('script'); s.src = params.get('exam') || 'exam.js'; s.onload = ok; s.onerror = bad; document.head.appendChild(s); });
+    await document.fonts.load('16px HWCJK', '故'); await document.fonts.load('16px HWLatin', 'a1');
+    for (const { n, fn } of PAGES) {
+      if (ONLY && String(n) !== ONLY) continue;
+      const pg = document.createElement('div'); pg.className = 'page'; pg.id = 'p' + n;
+      if (PREVIEW) { pg.classList.add('preview'); pg.style.backgroundImage = `url(${params.get('bgdir') || 'bg'}/h-${String(n).padStart(2, '0')}.png)`; }
+      document.body.appendChild(pg);
+      HW_reseed(1000 + n * 7919);
+      const sk = new Sketch(pg);
+      fn(pg, sk);
+    }
+    await document.fonts.ready;
+    HW.drawDecos(document.body);
+    window.READY = true;
+  })();
+</script>
+</body></html>
