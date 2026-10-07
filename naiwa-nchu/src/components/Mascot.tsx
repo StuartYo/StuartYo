@@ -1,7 +1,10 @@
 /**
- * 原創的奶蛙吉祥物（不是官方奶龍圖）。圓胖、綠色、奶白肚子、兩顆往不同方向看的眼睛。
+ * 奶蛙吉祥物。有放真實圖片（src/data/naiwa-art.ts）就用圖片，否則用內建的手繪版：
+ * 圓胖、奶黃色、奶白肚子、兩顆往不同方向看的眼睛。
  * mood：idle 平常｜happy 開放打卡｜lost 迷路｜sleep 夜間｜party 打卡成功
  */
+import { NAIWA_ART } from "@/data/naiwa-art";
+
 export type Mood = "idle" | "happy" | "lost" | "sleep" | "party";
 
 export default function Mascot({
@@ -15,6 +18,20 @@ export default function Mascot({
   flip?: boolean;
   className?: string;
 }) {
+  const art = NAIWA_ART[mood] ?? NAIWA_ART.default;
+  if (art)
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={art}
+        alt=""
+        width={size}
+        height={size}
+        className={`mascot-img mood-${mood} ${flip ? "flip" : ""} ${className}`}
+        style={{ width: size, height: size }}
+        aria-hidden
+      />
+    );
   const eyesClosed = mood === "sleep";
   return (
     <svg

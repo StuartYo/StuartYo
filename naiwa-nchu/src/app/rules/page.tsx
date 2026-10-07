@@ -16,7 +16,7 @@ export default function RulesPage() {
           <Mascot size={96} mood="happy" />
           <dl className="lore" style={{ margin: 0 }}>
             <dt>物種｜奶蛙</dt>
-            <dd>綠色、圓胖、奶白肚子，兩顆眼睛常常看往不同方向。</dd>
+            <dd>奶黃色、圓胖、青蛙臉，據說是 AI 畫奶龍時不小心畫出來的。</dd>
             <dt>體型｜身材高大，密度較大</dt>
             <dd>出沒時通常伴隨微弱笑聲。（近親奶龍則是身材矮小、密度極大，出沒時伴隨地震感。）</dd>
             <dt>習性｜流動</dt>
@@ -78,7 +78,7 @@ export default function RulesPage() {
         </div>
 
         <div className="card lore">
-          <b>關於奶蛙</b>：奶蛙是網友二創的迷因，源自動畫角色「奶龍」，並非官方形象。近期各地大學流行「流動的奶蛙」：同學把奶蛙立牌搬到校園各處拍照分享。本活動與奶龍官方無關，網站上的奶蛙插圖為本站原創繪製。
+          <b>關於奶蛙</b>：奶蛙是 AI 在生成奶龍圖片時意外畫出的迷因形象，並非奶龍官方角色。近期各地大學流行「流動的奶蛙」：同學把奶蛙立牌搬到校園各處拍照分享。本活動與奶龍官方無關。
         </div>
         <div className="foot label">NAIWA OBSERVATORY · NCHU · 2026</div>
       </main>

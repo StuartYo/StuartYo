@@ -7,7 +7,7 @@ type Pt = { lat: number; lng: number };
 const NONE: (Pt & { name: string })[] = [];
 const FROG_PIN = `<svg viewBox="0 0 40 48" width="40" height="48" style="overflow:visible;filter:drop-shadow(2px 2px 0 #15190f)">
   <path d="M20 47 L13 34 H27 Z" fill="#15190f"/>
-  <circle cx="20" cy="22" r="15" fill="#8fd14f" stroke="#15190f" stroke-width="2.5"/>
+  <circle cx="20" cy="22" r="15" fill="#ffd43b" stroke="#15190f" stroke-width="2.5"/>
   <circle cx="12.5" cy="12" r="6" fill="#fff" stroke="#15190f" stroke-width="2.5"/>
   <circle cx="27.5" cy="12" r="6" fill="#fff" stroke="#15190f" stroke-width="2.5"/>
   <circle cx="11" cy="12" r="2.4" fill="#15190f"/><circle cx="29" cy="12" r="2.4" fill="#15190f"/>
@@ -63,7 +63,7 @@ export default function MapView({
     if (!mod || !map.current || !layer.current) return;
     layer.current.clearLayers();
     mod
-      .circle([target.lat, target.lng], { radius, color: "#15190f", weight: 2.5, dashArray: "6 6", fillColor: "#8fd14f", fillOpacity: 0.28 })
+      .circle([target.lat, target.lng], { radius, color: "#15190f", weight: 2.5, dashArray: "6 6", fillColor: "#ffd43b", fillOpacity: 0.35 })
       .addTo(layer.current);
     mod
       .marker([target.lat, target.lng], {

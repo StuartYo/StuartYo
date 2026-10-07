@@ -2,9 +2,9 @@ import Link from "next/link";
 import Ticker from "./Ticker";
 import type { State } from "@/lib/hooks";
 
-export function BrandMark() {
+export function BrandMark({ size }: { size?: number }) {
   return (
-    <svg viewBox="0 0 40 40" className="brand-mark" aria-hidden>
+    <svg viewBox="0 0 40 40" className="brand-mark" style={size ? { width: size, height: size, display: "inline-block" } : undefined} aria-hidden>
       <circle cx="20" cy="22" r="16" fill="var(--frog)" stroke="var(--ink)" strokeWidth="2.5" />
       <circle cx="12" cy="11" r="6.5" fill="#fff" stroke="var(--ink)" strokeWidth="2.5" />
       <circle cx="28" cy="11" r="6.5" fill="#fff" stroke="var(--ink)" strokeWidth="2.5" />
