@@ -44,6 +44,7 @@ python3 merge.py 題本.pdf overlay.pdf 輸出.pdf 2    # 2 = 手寫第一頁對
 | `exams/112-4-mathB` | 112 學年度學測第四次模擬考 數學B（掃描檔） | PDF 第 2–7 頁 |
 | `exams/113-mathB` | 113 學年度學測 數學B（正式考題） | PDF 第 2–7 頁 |
 | `exams/111-E4-mathA` | 新北基 111 學年度學測聯合模擬考 數學A（掃描檔） | PDF 第 2–7 頁 |
+| `exams/111-E4-mathB` | 新北基 111 學年度學測聯合模擬考 數學B（掃描檔） | PDF 第 2–7 頁 |
 
 ## 寫一份新的詳解
 
