@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api, ApiError } from "@/lib/client";
+import { BrandMark } from "@/components/TopBar";
 import Overview from "./Overview";
 import Photos from "./Photos";
 import Schedule from "./Schedule";
@@ -42,8 +43,12 @@ export default function AdminPage() {
   return (
     <>
       <header className="topbar">
+        <div className="topbar-bar">
         <div className="topbar-inner" style={{ maxWidth: 1100 }}>
-          <span className="brand">🐸 奶蛙後台</span>
+          <span className="brand">
+            <BrandMark />
+            <span className="brand-name">奶蛙觀測站・後台</span>
+          </span>
           <span className="spacer" />
           <a href="/" target="_blank" className="small">
             看前台 ↗
@@ -57,6 +62,7 @@ export default function AdminPage() {
           >
             登出
           </button>
+        </div>
         </div>
       </header>
       <main className="wrap wide">

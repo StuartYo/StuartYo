@@ -1,5 +1,6 @@
 "use client";
 import TopBar from "@/components/TopBar";
+import { MilkEgg } from "@/components/Mascot";
 import { formatTime } from "@/lib/client";
 import { useLive } from "@/lib/hooks";
 
@@ -11,11 +12,15 @@ export default function PhotosPage() {
     <>
       <TopBar />
       <main className="wrap">
-        <h1 style={{ fontSize: 24, margin: "18px 4px 0" }}>📸 奶蛙旅行相簿</h1>
-        <p className="small muted" style={{ margin: "4px 4px 0" }}>奶蛙每一站的合照，審核通過後會出現在這裡。</p>
+        <div className="page-head">
+          <div className="label">FIELD RECORDS · 目擊紀錄</div>
+          <h1>奶蛙旅行相簿</h1>
+          <p>奶蛙每一站的合照，審核通過後會出現在這裡。</p>
+        </div>
         {data && data.length === 0 && (
-          <div className="card center muted">
-            <div className="big-emoji">🐸</div>還沒有照片，快帶奶蛙去第一站吧！
+          <div className="card center">
+            <MilkEgg size={70} />
+            <p style={{ color: "var(--ink-2)", marginBottom: 0 }}>還沒有紀錄。奶蛋還沒孵化，快帶奶蛙去第一站吧！</p>
           </div>
         )}
         <div className="gallery">
@@ -26,8 +31,10 @@ export default function PhotosPage() {
                 <img src={`/api/photos/${p.id}`} alt={`第 ${p.number} 站 ${p.landmark}`} loading="lazy" />
               </a>
               <figcaption>
-                第 {p.number} 站・{p.landmark}
-                <span>{formatTime(new Date(p.created_at).getTime(), true)}</span>
+                {p.landmark}
+                <span>
+                  OBS #{String(p.number).padStart(3, "0")} ·{" "}
+                  {formatTime(new Date(p.created_at).getTime(), true)}</span>
               </figcaption>
             </figure>
           ))}

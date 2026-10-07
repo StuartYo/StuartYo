@@ -3,12 +3,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { api, saveToken } from "./client";
 
 /** 定期向伺服器拿最新資料；分頁切到背景時暫停，回來時立刻更新 */
-export function useLive<T>(path: string, intervalMs: number) {
+export function useLive<T>(path: string | null, intervalMs: number) {
   const [live, setLive] = useState<{ data: T; at: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const load = useCallback(async () => {
+    if (!path) return;
     try {
       const data = await api<T>(path);
       setLive({ data, at: Date.now() });
@@ -19,6 +20,7 @@ export function useLive<T>(path: string, intervalMs: number) {
   }, [path]);
 
   useEffect(() => {
+    if (!path) return;
     let alive = true;
     const tick = async () => {
       if (!alive) return;
@@ -33,7 +35,7 @@ export function useLive<T>(path: string, intervalMs: number) {
       if (timer.current) clearTimeout(timer.current);
       document.removeEventListener("visibilitychange", onVis);
     };
-  }, [load, intervalMs]);
+  }, [load, intervalMs, path]);
 
   return { data: live?.data ?? null, receivedAt: live?.at ?? null, error, reload: load };
 }

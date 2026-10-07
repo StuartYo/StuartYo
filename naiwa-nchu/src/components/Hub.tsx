@@ -18,6 +18,7 @@ import {
 } from "@/lib/client";
 import { useLive, useMe, useNow, type Board, type State } from "@/lib/hooks";
 import TopBar from "./TopBar";
+import Mascot, { type Mood } from "./Mascot";
 
 const MapView = dynamic(() => import("./MapView"), { ssr: false, loading: () => <div className="map" /> });
 
@@ -97,66 +98,110 @@ export default function Hub({ fromQr = false }: { fromQr?: boolean }) {
     </button>
   );
 
+  const night = (() => {
+    const h = new Date(now + 8 * 3600_000).getUTCHours();
+    return h >= 22 || h < 7;
+  })();
+  const mood: Mood = !cur
+    ? "idle"
+    : cur.status === "lost"
+      ? "lost"
+      : cur.status === "void"
+        ? "sleep"
+        : result?.kind === "ok" || me?.scannedCurrent
+          ? "party"
+          : cur.status === "open" || cur.status === "confirmed"
+            ? "happy"
+            : night
+              ? "sleep"
+              : "idle";
+
   return (
     <>
-      <TopBar right={me !== undefined ? chip : null} />
+      <TopBar right={me !== undefined ? chip : null} state={state} />
       <main className="wrap">
         {app && <InAppNotice app={app} />}
-        {!state && !stateErr && <div className="card center muted">載入中…</div>}
-        {stateErr && !state && <div className="note bad">{stateErr}</div>}
-
-        {state?.phase === "unscheduled" && (
-          <div className="card hero center">
-            <div className="big-emoji">🐸</div>
-            <h1 style={{ fontSize: 24, marginTop: 8 }}>奶蛙興大巡迴賽</h1>
-            <p className="muted">活動日期即將公布，敬請期待！</p>
-            <p className="small muted">連續 {state.slotCount} 小時，每小時一個新地點，帶著奶蛙走遍中興，幫你的系拿下奶蛙獎座 🏆</p>
+        {!state && !stateErr && (
+          <div className="card center" style={{ padding: 30 }}>
+            <Mascot size={90} />
+            <div className="label" style={{ marginTop: 8 }}>正在搜尋奶蛙訊號…</div>
           </div>
         )}
+        {stateErr && !state && <div className="note bad">{stateErr}</div>}
 
-        {state?.phase === "before" && state.startsAt && (
-          <div className="card hero center">
-            <div className="big-emoji">🐸</div>
-            <div className="sub" style={{ marginTop: 6 }}>距離活動開始還有</div>
-            <div className="countdown" style={{ fontSize: 38 }}>{formatCountdown(state.startsAt - now)}</div>
-            <p className="small muted">
-              {formatTime(state.startsAt, true)} 開始，第一站會在開始前 {Math.round((state.startsAt - (state.next?.revealAt ?? state.startsAt)) / 60000)} 分鐘公布
-            </p>
-            {!me?.deptId && (
-              <button className="btn" onClick={() => setSheet("dept")}>
-                先選好我的系級
-              </button>
+        {(state?.phase === "unscheduled" || state?.phase === "before") && (
+          <section className="card hero center">
+            <div className="label">NAIWA MIGRATION · SEASON 01</div>
+            <div className="mirror-pair">
+              <Mascot size={92} mood="happy" />
+              <div className="bubbles">
+                <span className="bubble l">我是奶蛙</span>
+                <span className="bubble r">我才是奶蛙</span>
+              </div>
+              <Mascot size={92} mood="idle" flip />
+            </div>
+            <h1 style={{ fontSize: 34 }}>流動的奶蛙<br />即將降臨中興</h1>
+            {state.phase === "before" && state.startsAt ? (
+              <>
+                <div className="clock" style={{ justifyContent: "center" }}>
+                  <span className="digits">{formatCountdown(state.startsAt - now)}</span>
+                </div>
+                <p className="small" style={{ color: "var(--ink-2)" }}>
+                  {formatTime(state.startsAt, true)} 開始・第一站會在開始前{" "}
+                  {Math.round((state.startsAt - (state.next?.revealAt ?? state.startsAt)) / 60000)} 分鐘公布
+                </p>
+                {!me?.deptId && (
+                  <button className="btn" onClick={() => setSheet("dept")}>
+                    先登記我的系級
+                  </button>
+                )}
+              </>
+            ) : (
+              <p style={{ color: "var(--ink-2)" }}>
+                連續 {state.slotCount} 小時、每小時一個新地點。
+                <br />
+                跟著奶蛙走遍中興，幫你的系拿下奶蛙獎座 🏆
+              </p>
             )}
-          </div>
+          </section>
         )}
 
         {state?.phase === "ended" && (
-          <div className="card hero center">
-            <div className="big-emoji">🏆</div>
-            <h1 style={{ fontSize: 24, marginTop: 8 }}>活動結束啦！</h1>
-            <p className="muted">謝謝大家陪奶蛙走遍中興，最後結果請看排行榜和 IG 公告。</p>
+          <section className="card hero center">
+            <Mascot size={120} mood="sleep" />
+            <h1 style={{ fontSize: 32, marginTop: 6 }}>本季遷徙結束</h1>
+            <p style={{ color: "var(--ink-2)" }}>奶蛙已經回去睡覺了。謝謝大家陪奶蛙走遍中興，最後結果請看排行榜和 IG 公告。</p>
             <Link href="/leaderboard" className="btn">
               看排行榜
             </Link>
-          </div>
+          </section>
         )}
 
         {state?.phase === "running" && cur && (
           <>
             <section className="card hero">
-              <div className="slotline">
-                <span>
-                  第 {cur.number} / {state.slotCount} 站
-                </span>
-                <span>
-                  剩 <span className="countdown">{formatCountdown(cur.endsAt - now)}</span>
-                </span>
+              <div className="hero-top">
+                <div className="obs-no">
+                  OBS <b>#{String(cur.number).padStart(3, "0")}</b> / {state.slotCount}
+                </div>
+                <div className={`badge ${cur.status}`}>
+                  <span className="pulse" />
+                  {STATUS_TEXT[cur.status]}
+                </div>
               </div>
-              <div className="place">📍 {cur.landmark.name}</div>
+              <div className="hero-mascot">
+                <Mascot size={128} mood={mood} />
+              </div>
+              <div className="label" style={{ marginTop: 14 }}>目擊地點</div>
+              <div className="place">{cur.landmark.name}</div>
               {cur.landmark.hint && <div className="hint">{cur.landmark.hint}</div>}
-              <div className={`badge ${cur.status}`}>
-                <span className="pulse" />
-                {STATUS_TEXT[cur.status]}
+              <div className="clock">
+                <span className="digits">{formatCountdown(cur.endsAt - now)}</span>
+                <span className="unit">
+                  剩餘時間
+                  <br />
+                  UNTIL {formatTime(cur.endsAt)}
+                </span>
               </div>
               <MapView
                 target={cur.landmark}
@@ -183,14 +228,16 @@ export default function Hub({ fromQr = false }: { fromQr?: boolean }) {
 
         {board && state && state.phase !== "unscheduled" && state.phase !== "before" && (
           <>
-            <div className="row" style={{ marginTop: 22 }}>
-              <div className="section-title" style={{ margin: "0 4px" }}>🏆 排行榜</div>
+            <div className="row" style={{ marginTop: 28 }}>
+              <div className="section-title" style={{ margin: "0 4px" }}>
+                各系族群數量 <span className="label">LEADERBOARD</span>
+              </div>
               <span className="spacer" />
-              <Link href="/leaderboard" className="small">
-                完整排行 →
+              <Link href="/leaderboard" className="small" style={{ fontWeight: 700 }}>
+                全部 →
               </Link>
             </div>
-            <div className="card" style={{ marginTop: 8 }}>
+            <div className="card" style={{ marginTop: 10 }}>
               {board.frozenAt && <div className="note warn" style={{ marginTop: 0 }}>🙈 排行榜已凍結，最後結果揭曉前保密！</div>}
               <BoardList rows={board.rows} myDeptId={me?.deptId} limit={5} />
             </div>
@@ -256,11 +303,17 @@ function Action({
   if (result?.kind === "ok" || me?.scannedCurrent) {
     return (
       <div className="done">
-        <div className="big">✅</div>
-        <div className="pts">
-          {result?.kind === "ok" ? `${result.dept} +${result.points} 分！` : "這個時段已經打過卡囉"}
-        </div>
-        <p className="muted small" style={{ marginBottom: 0 }}>
+        <div className="stamp">已目擊 ✓</div>
+        {result?.kind === "ok" ? (
+          <div className="pts">
+            +{result.points} <small>分 → {result.dept}</small>
+          </div>
+        ) : (
+          <div className="pts" style={{ fontSize: 22, fontFamily: "var(--font-display)", fontWeight: 400 }}>
+            這一站已經打過卡囉
+          </div>
+        )}
+        <p className="small" style={{ marginBottom: 0, color: "var(--ink-2)" }}>
           {result?.kind === "ok" && result.pending
             ? "分數會在工作人員確認合照後正式生效，排行榜上會先顯示為「待確認」。"
             : "下個時段換地點後再來打卡吧！"}
@@ -283,15 +336,15 @@ function Action({
         <>
           {cur.status === "lost" ? (
             <div className="note bad" style={{ marginTop: 0 }}>
-              🥺 奶蛙好像迷路了⋯⋯有看到奶蛙的同學，請幫忙把我帶到<b>「{cur.landmark.name}」</b>，謝謝你！
+              <b>奶蛙好像迷路了⋯⋯</b>有看到奶蛙的同學，請幫忙把我帶到「{cur.landmark.name}」，謝謝你 🥺
             </div>
           ) : (
             <div className="note warn" style={{ marginTop: 0 }}>
-              🐸 奶蛙還在路上！等有人把奶蛙帶到這裡、上傳合照後，就會開放打卡。
+              <b>奶蛙還在路上。</b>等有人把奶蛙帶到這裡、上傳合照後，就會開放打卡。
             </div>
           )}
-          <div className="stack" style={{ marginTop: 12 }}>
-            <button className="btn" onClick={onPhoto}>
+          <div className="stack" style={{ marginTop: 14 }}>
+            <button className="btn gold big" onClick={onPhoto}>
               📸 我帶奶蛙到了！拍合照
             </button>
             <p className="small muted center" style={{ margin: 0 }}>
@@ -303,7 +356,7 @@ function Action({
 
       {open && (
         <>
-          <button className="btn" onClick={onCheckin} disabled={!!busy || me === undefined} style={{ fontSize: 19, padding: "18px 16px" }}>
+          <button className="btn big" onClick={onCheckin} disabled={!!busy || me === undefined}>
             {busy === "locating" ? "📡 確認位置中…" : busy === "sending" ? "送出中…" : `📍 我在現場，${weightHint}！`}
           </button>
           <p className="small muted center" style={{ margin: "8px 0 0" }}>
@@ -325,19 +378,21 @@ function Action({
 
 function NextStop({ state, now }: { state: State; now: number }) {
   const next = state.next;
-  if (!next) return <div className="note info">這是最後一站了！</div>;
+  if (!next) return <div className="note info">這是本季最後一站了！</div>;
   return (
-    <section className="card">
-      <h2>⏭️ 下一站</h2>
+    <section className="card forecast">
+      <div className="label">NEXT · 下一站預報</div>
       {next.landmark ? (
         <>
-          <div style={{ fontSize: 20, fontWeight: 800 }}>{next.landmark.name}</div>
+          <div className="place-sm" style={{ marginTop: 4 }}>→ {next.landmark.name}</div>
           <div className="sub">
             {formatTime(next.startsAt)} 開始（{formatCountdown(next.startsAt - now)} 後）・幫忙把奶蛙搬過去吧！
           </div>
         </>
       ) : (
-        <div className="sub">
+        <div className="sub" style={{ marginTop: 4 }}>
+          <span className="place-sm" style={{ letterSpacing: ".2em" }}>？？？</span>
+          <br />
           會在 {formatTime(next.revealAt)} 公布（{formatCountdown(next.revealAt - now)} 後），{formatTime(next.startsAt)} 開始
         </div>
       )}

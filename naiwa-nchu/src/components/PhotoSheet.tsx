@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Sheet from "./Sheet";
+import Mascot from "./Mascot";
 import { api, ApiError, compressImage, fingerprint, GeoError, getBestPosition } from "@/lib/client";
 
 /** 拍「奶蛙＋地標＋手勢」合照並上傳，開放這個時段的打卡 */
@@ -64,8 +65,8 @@ export default function PhotoSheet({
     return (
       <Sheet onClose={onClose}>
         <div className="done">
-          <div className="big">🎉</div>
-          <h3 style={{ marginTop: 10 }}>謝謝你把奶蛙帶來！</h3>
+          <Mascot size={110} mood="party" className="center-block" />
+          <h3 style={{ marginTop: 6 }}>謝謝你把奶蛙帶來！</h3>
           <p className="muted">這個時段已經開放打卡了，快叫附近的同學一起來掃 QR Code～</p>
         </div>
         <button className="btn" onClick={onClose}>
@@ -76,7 +77,7 @@ export default function PhotoSheet({
 
   return (
     <Sheet onClose={onClose}>
-      <h3>📸 拍一張奶蛙合照</h3>
+      <h3>拍一張奶蛙合照</h3>
       <p className="small muted" style={{ margin: 0 }}>只要有一個人上傳，這個時段就會開放給大家打卡。</p>
       <ul className="checklist">
         <li>

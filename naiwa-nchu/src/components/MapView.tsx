@@ -5,6 +5,14 @@ import type { Map as LMap, LayerGroup } from "leaflet";
 
 type Pt = { lat: number; lng: number };
 const NONE: (Pt & { name: string })[] = [];
+const FROG_PIN = `<svg viewBox="0 0 40 48" width="40" height="48" style="overflow:visible;filter:drop-shadow(2px 2px 0 #15190f)">
+  <path d="M20 47 L13 34 H27 Z" fill="#15190f"/>
+  <circle cx="20" cy="22" r="15" fill="#8fd14f" stroke="#15190f" stroke-width="2.5"/>
+  <circle cx="12.5" cy="12" r="6" fill="#fff" stroke="#15190f" stroke-width="2.5"/>
+  <circle cx="27.5" cy="12" r="6" fill="#fff" stroke="#15190f" stroke-width="2.5"/>
+  <circle cx="11" cy="12" r="2.4" fill="#15190f"/><circle cx="29" cy="12" r="2.4" fill="#15190f"/>
+  <path d="M14 25q6 5 12 0" fill="none" stroke="#15190f" stroke-width="2.5" stroke-linecap="round"/>
+</svg>`;
 
 /** 顯示目標地點、範圍圈，以及（如果有）使用者目前位置 */
 export default function MapView({
@@ -55,11 +63,11 @@ export default function MapView({
     if (!mod || !map.current || !layer.current) return;
     layer.current.clearLayers();
     mod
-      .circle([target.lat, target.lng], { radius, color: "#3e9a4e", weight: 2, fillColor: "#3e9a4e", fillOpacity: 0.15 })
+      .circle([target.lat, target.lng], { radius, color: "#15190f", weight: 2.5, dashArray: "6 6", fillColor: "#8fd14f", fillOpacity: 0.28 })
       .addTo(layer.current);
     mod
       .marker([target.lat, target.lng], {
-        icon: mod.divIcon({ html: '<div style="font-size:30px;line-height:30px">🐸</div>', className: "", iconSize: [30, 30], iconAnchor: [15, 26] }),
+        icon: mod.divIcon({ html: FROG_PIN, className: "", iconSize: [40, 48], iconAnchor: [20, 46] }),
       })
       .bindTooltip(target.name, { permanent: false })
       .addTo(layer.current);
