@@ -1,5 +1,27 @@
 # 高中數學公式總表
 
+有兩種版本：
+
+- **講義版（`build-hs.js`，主要用這個）**：照自編講義網站 [hs-math](https://hs-math.vercel.app) 的 17 章架構與「公式速查」的 367 條公式產生，數學式用網站自己的 `mathlite.js` 排版，長相和網站一致。講義內容不放在這個 repo，產生時從 hs-math 的資料夾讀。
+- **108 課綱通用版（`build.js` + `data.js`）**：不依任何講義，照課綱整理的 215 條公式。
+
+兩種版本都會輸出師用版和學生默寫版，最後都附常見數值（√1～√10、log 1～log 10、特殊角三角函數值、π、e）。
+
+## 講義版
+
+```bash
+npm install                                   # KaTeX、STIX Two Math 字型
+mkdir -p fonts && curl -L -o fonts/NotoSansTC.ttf \
+  "https://raw.githubusercontent.com/google/fonts/main/ofl/notosanstc/NotoSansTC%5Bwght%5D.ttf"
+node build-hs.js ../hs-math out                # hs-math 資料夾 → out/高中數學公式總表（講義版）-師用版.pdf、-學生默寫版.pdf
+```
+
+第三個參數可以給一份公式 JSON（`{ "ch01": [...], ... }`），用來改用線上版的資料。少數備註把數學式寫在 `$…$` 外面（例如 `x_0 pm r`、`sqrt(2)`），列印時會自動整理成 x₀ ± r、√2，網站本身不受影響。
+
+---
+
+以下是 108 課綱通用版的說明。
+
 一份資料（`data.js`）產生兩個 PDF：
 
 - **師用版**：每個名稱對應一個標準公式。

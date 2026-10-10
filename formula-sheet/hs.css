@@ -1,0 +1,24 @@
+/* extra styles for the hs-math (lecture-notes) version; loaded after style.css */
+@font-face { font-family: 'STIX Two Math'; src: url('fonts/STIXTwoMath.woff2') format('woff2'); }
+
+math { font-family: 'STIX Two Math', serif; font-size: 1.08em; }
+.ans math[display="block"] { display: inline math; }      /* keep display-style fractions, but left-aligned */
+.ans .eqscroll { display: block; }
+.cond math, .name math { font-size: 1.05em; }
+
+.chap { margin: 4.5mm 0 0; padding: 0 0 1mm; font-size: 11.5pt; font-weight: 800; color: var(--accent);
+  border-bottom: 1.2pt solid var(--accent); break-after: avoid; }
+.chap.elective { color: var(--elective); border-color: var(--elective); }
+.chap .chno { display: inline-block; min-width: 13mm; font-size: 9.5pt; letter-spacing: 0.04em; opacity: 0.85; }
+.grp { margin: 2mm 0 0; padding: 0.8mm 2mm; font-size: 9pt; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--muted); background: #f1f4f8; break-after: avoid; }
+
+.row { grid-template-columns: 8mm 40mm 1fr; min-height: 10.5mm; }
+.row > div { padding: 1.1mm 1.8mm; }
+.no { padding-top: 1.7mm !important; }
+.ans { gap: 0.2mm; }
+.ans .cond { font-size: 8.3pt; line-height: 1.35; }
+.chap { margin-top: 3.5mm; }
+.grp { margin-top: 1.4mm; padding: 0.5mm 2mm; }
+td.v { font-size: 10.5pt; }
+.trig math, .card td math { math-style: normal; }
