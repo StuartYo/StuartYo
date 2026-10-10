@@ -1,0 +1,78 @@
+@font-face { font-family: 'TC'; src: url('fonts/NotoSansTC.ttf'); font-weight: 100 900; }
+
+:root {
+  --ink: #1b1f27;
+  --muted: #5f6b7a;
+  --line: #d5dbe3;
+  --accent: #1f4e8c;
+  --accent-soft: #eaf1fb;
+  --tag-a: #1f5fbf;
+  --tag-b: #1b8a4b;
+  --elective: #8a5a00;
+  --elective-soft: #fbf3e2;
+}
+@page { size: A4; margin: 13mm 12mm 15mm 12mm; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #fff; }
+body { font-family: 'TC', sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.45;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.katex { font-size: 1.08em; }
+.katex .text, .katex .textrm { font-family: 'TC', sans-serif; }
+
+/* ---------- cover header ---------- */
+.head { display: flex; align-items: flex-end; justify-content: space-between; gap: 6mm;
+  border-bottom: 2.2pt solid var(--accent); padding-bottom: 3mm; margin-bottom: 3mm; }
+.head h1 { margin: 0; font-size: 21pt; font-weight: 800; letter-spacing: 0.06em; }
+.head .sub { color: var(--muted); font-size: 9.5pt; margin-top: 1mm; }
+.badge { font-size: 11pt; font-weight: 700; padding: 1.4mm 3.5mm; border-radius: 2mm; white-space: nowrap; }
+.teacher .badge { color: #b3261e; border: 1.2pt solid #b3261e; }
+.student .badge { color: var(--accent); border: 1.2pt solid var(--accent); }
+.info { display: flex; gap: 9mm; font-size: 10.5pt; margin: 3mm 0 2mm; white-space: nowrap; }
+.info label { display: flex; align-items: flex-end; gap: 1.5mm; }
+.info span { display: inline-block; width: 42mm; height: 5mm; border-bottom: 0.8pt solid var(--ink); }
+.info span.short { width: 18mm; }
+.teacher .info { visibility: hidden; }
+.legend { font-size: 8.8pt; color: var(--muted); margin-bottom: 3mm; line-height: 1.6; }
+.legend .tag { margin: 0 1mm; }
+
+/* ---------- parts & sections ---------- */
+.part { margin: 5mm 0 0; padding: 1.6mm 3mm; font-size: 12pt; font-weight: 800; color: #fff;
+  background: var(--accent); border-radius: 1.5mm; break-after: avoid; }
+.part.elective { background: var(--elective); }
+.part small { font-weight: 500; font-size: 8.8pt; opacity: 0.9; margin-left: 2mm; }
+.sec { margin: 3.2mm 0 0; padding: 0 0 1mm 0; font-size: 11pt; font-weight: 700; color: var(--accent);
+  border-bottom: 1pt solid var(--accent); break-after: avoid; }
+.sec.elective { color: var(--elective); border-color: var(--elective); }
+
+/* ---------- formula rows ---------- */
+.row { display: grid; grid-template-columns: 8mm 50mm 1fr; border-bottom: 0.6pt solid var(--line);
+  min-height: 12.5mm; break-inside: avoid; }
+.row > div { padding: 1.6mm 1.8mm; }
+.no { color: var(--muted); font-size: 8.5pt; text-align: right; padding-top: 2.2mm !important; }
+.name { border-right: 0.6pt dashed var(--line); }
+.name b { font-weight: 700; }
+.name .hint { display: block; color: var(--muted); font-size: 9pt; margin-top: 0.4mm; }
+.name .hint .katex { font-size: 1.12em; }
+.ans { display: flex; flex-direction: column; justify-content: center; gap: 0.6mm; }
+.ans .cond { color: var(--muted); font-size: 8.8pt; }
+.tag { display: inline-block; font-size: 7.5pt; font-weight: 700; line-height: 1; padding: 0.6mm 1.2mm;
+  border-radius: 1mm; vertical-align: 0.2em; margin-left: 1.2mm; }
+.tag.A { color: var(--tag-a); border: 0.7pt solid var(--tag-a); }
+.tag.B { color: var(--tag-b); border: 0.7pt solid var(--tag-b); }
+
+/* ---------- common numbers ---------- */
+.nums { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm 6mm; margin-top: 3mm; }
+.card { break-inside: avoid; }
+.card h3 { margin: 0 0 1.2mm; font-size: 10.5pt; color: var(--accent); }
+.card.wide { grid-column: 1 / -1; }
+table { border-collapse: collapse; width: 100%; }
+td, th { border: 0.6pt solid var(--line); padding: 1.3mm 2mm; height: 10mm; vertical-align: middle; }
+th { background: var(--accent-soft); font-weight: 700; }
+td.k { background: #f7f9fc; width: 22%; text-align: center; }
+td.v { width: 28%; }
+.trig td, .trig th { text-align: center; width: 22%; }
+.trig td.k { width: 34%; }
+
+/* student version: keep the exact layout, hide the answers */
+.student .ans > *, .student td.v > *, .student .trig td.v > * { visibility: hidden; }
+.student td.v.txt { color: transparent; }

@@ -1,0 +1,8 @@
+{
+  "name": "formula-sheet",
+  "private": true,
+  "description": "高中數學公式總表（師用版／學生默寫版）產生器",
+  "dependencies": {
+    "katex": "^0.16.11"
+  }
+}
