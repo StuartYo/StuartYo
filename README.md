@@ -1,33 +1,25 @@
-<div align="center">
+# Stuart Yu（游驊益）
 
-# Stuart Yu
+Information Management student at National Chung Hsing University, Taiwan.
 
-國立中興大學 資訊管理學系學生。<br>
-課餘做了幾個上線的小產品，過程大量使用 AI 開發工具。
+I build small tools for people around me: classmates, tutoring schools, a university program. Claude Code (an AI coding assistant) writes most of the code. My part is choosing the problem, deciding how it should work, testing it with real users, and keeping it running.
 
-### [作品集網站 · Portfolio →](https://stuartyo.com)
+國立中興大學資管系學生。做給身邊的人用的小工具，程式大多由 AI 協助撰寫，我負責找問題、決定怎麼做、找人實測、上線維護。
 
-[寄信給我](mailto:st950331@gmail.com)
+### Projects
 
-</div>
-
----
-
-### 做過的東西
-
-| 專案 | 是什麼 | 連結 |
+| Project | What it does | Status |
 | :-- | :-- | :-- |
-| **Tutorly** | 補習班用的管理系統；從資料庫、前後端一路做到上線 | [tutorly.tw](https://tutorly.tw) |
-| **The Makers Camp** | 給國中青少年的 AI 課程：用 Claude 把自己的想法做出來＋AI 基礎素養（運作原理、辨別資訊真偽）；網站含後台、影片保護、自動轉字幕 | [themakerscamp.com](https://themakerscamp.com) |
-| **Discord AI 助理 bot** | 接 LLM 的 Discord 機器人，自己架在雲端主機上 24 小時跑 | 私有專案 |
+| **DueMate** | LINE bot for student group projects. An LLM drafts a task breakdown from the assignment, members claim tasks, and the bot sends reminders before deadlines. | Live at [duemate.stuartyo.com](https://duemate.stuartyo.com). NCHU 2026 programming competition entry; I built the system, my teammate handles the presentation. |
+| **Tutorly** | Management system for tutoring schools: classes, students, grades, progress reports. | Live at [tutorly.tw](https://tutorly.tw). Team of three. |
+| **NCHU tutoring program tools** | Google Apps Script tools that sync records between the program and its ten partner elementary schools. | In use since Aug 2026. |
+| **The Makers Camp** | Website for a small AI course I taught junior-high students in summer 2026. | [themakerscamp.com](https://themakerscamp.com) |
 
-### 用過的工具
+### Tools I've used in these projects
 
-平常用 `Next.js`、`Supabase`、`Vercel` 這類工具把東西做出來；也碰過 LLM 應用、雲端主機部署（Linux）、影片轉字幕等。<br>
-Web3 跟 Figma 都剛開始學。
+JavaScript / TypeScript · Next.js · Supabase (PostgreSQL) · Google Apps Script · LINE Messaging API · Python · Vercel · Cloudflare
 
 ---
 
-<div align="center">
-<sub>2027 春將赴大阪工業大學交換</sub>
-</div>
+Exchange semester at Osaka Institute of Technology, spring 2027.
+[stuartyo.com](https://stuartyo.com) · [st950331@gmail.com](mailto:st950331@gmail.com)
