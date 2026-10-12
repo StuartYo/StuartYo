@@ -2,24 +2,26 @@
 
 Information Management student at National Chung Hsing University, Taiwan.
 
-I build small tools for people around me: classmates, tutoring schools, a university program. Claude Code (an AI coding assistant) writes most of the code. My part is choosing the problem, deciding how it should work, testing it with real users, and keeping it running.
+I pick the problem, set the rules, and direct AI to build it. Then I put it in front of real people. Claude Code (an AI coding assistant) writes most of the code. I own three things: code, not the model, decides money and anything irreversible; every AI feature ships with evals first; when the system is unsure, a person decides.
 
-國立中興大學資管系學生。做給身邊的人用的小工具，程式大多由 AI 協助撰寫，我負責找問題、決定怎麼做、找人實測、上線維護。
+國立中興大學資管系學生。我挑問題、定規則、帶 AI 把東西做出來，再交給真的人用。
 
 ### Projects
 
 | Project | What it does | Status |
 | :-- | :-- | :-- |
-| **DueMate** | LINE bot for student group projects. An LLM drafts a task breakdown from the assignment, members claim tasks, and the bot sends reminders before deadlines. | Live at [duemate.stuartyo.com](https://duemate.stuartyo.com). NCHU 2026 programming competition entry; I built the system, my teammate handles the presentation. |
-| **Tutorly** | Management system for tutoring schools: classes, students, grades, progress reports. | Live at [tutorly.tw](https://tutorly.tw). Team of three. |
-| **NCHU tutoring program tools** | Google Apps Script tools that sync records between the program and its ten partner elementary schools. | In use since Aug 2026. |
-| **The Makers Camp** | Website for a small AI course I taught junior-high students in summer 2026. | [themakerscamp.com](https://themakerscamp.com) |
+| **[SubGuard](https://github.com/StuartYo/subguard)** | Stops subscription chargebacks before they happen. The agent proposes remind, pause, downgrade or refund; code sets every dollar from the original PayPal capture. 22 scenarios × 3 runs, all passed. | PayPal AI Hackathon, submitted Oct 2026 · [demo](https://subguard-plum.vercel.app) · [video](https://youtu.be/3LJXCDCyXkI) |
+| **[Prompt Regression Guard](https://gitlab.com/gitlab-ai-hackathon/transcend-october-2026/43255630/showcase)** | Code review for AI prompts. Three GitLab Duo agents run a fixed eval on every merge request that edits a prompt, block protected regressions and hand the rest to the prompt owner. | GitLab "Life After Code" hackathon, submitted Oct 2026 · [video](https://youtu.be/3ouxwszE60w) |
+| **DueMate** | LINE bot for student group projects. AI drafts a task split, members claim tasks, and the bot sends the deadline reminders. v2.10, 503 automated tests. | Live at [duemate.stuartyo.com](https://duemate.stuartyo.com) · NCHU programming contest entry |
+| **Tutorly** | Management system for tutoring schools: classes, students, grades, progress reports. | Live at [tutorly.tw](https://tutorly.tw) · team of three |
+| **NCHU tutoring program tools** | Google Apps Script tools that sync records between a university program and its ten partner elementary schools. | In use since Aug 2026 |
+| **The Maker's Camp** | A small AI course for junior-high students, with its own course site. | [themakerscamp.com](https://www.themakerscamp.com) |
 
 ### Tools I've used in these projects
 
-JavaScript / TypeScript · Next.js · Supabase (PostgreSQL) · Google Apps Script · LINE Messaging API · Python · Vercel · Cloudflare
+TypeScript · Next.js · Node.js · Python · Supabase (PostgreSQL) · LINE Messaging API · Google Apps Script · Claude API · GitLab Duo Agent Platform · PayPal APIs · Vercel · Cloudflare · three.js
 
 ---
 
-Exchange semester at Osaka Institute of Technology, spring 2027.
-[stuartyo.com](https://stuartyo.com) · [st950331@gmail.com](mailto:st950331@gmail.com)
+Planned exchange semester at Osaka Institute of Technology, spring 2027.
+[stuartyo.com](https://stuartyo.com) · [contact@stuartyo.com](mailto:contact@stuartyo.com) · [LinkedIn](https://www.linkedin.com/in/stuartyo)
