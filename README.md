@@ -2,9 +2,9 @@
 
 Information Management student at National Chung Hsing University, Taiwan.
 
-I pick the problem, set the rules, and direct AI to build it. Then I put it in front of real people. Claude Code (an AI coding assistant) writes most of the code. I own three things: code, not the model, decides money and anything irreversible; every AI feature ships with evals first; when the system is unsure, a person decides.
+I build LINE bots, websites and AI agents, mostly with AI coding tools, and lately I've been entering hackathons. Claude Code writes most of my code, but three things stay out of its hands: code handles money and anything irreversible, every AI feature starts with test cases, and unclear cases go to a person.
 
-國立中興大學資管系學生。我挑問題、定規則、帶 AI 把東西做出來，再交給真的人用。
+國立中興大學資管系三年級。平常用 AI 寫程式，做過 LINE 機器人和網站，最近開始參加黑客松。
 
 ### Projects
 
