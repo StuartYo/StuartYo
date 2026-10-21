@@ -35,6 +35,8 @@ python3 merge.py 題本.pdf overlay.pdf 輸出.pdf 2    # 2 = 手寫第一頁對
 
 需要 Node + Playwright（Chromium）、Python 的 `pymupdf`。
 
+掃描檔的頁面如果帶 `/Rotate`，`merge.py` 會先把旋轉轉進內容，手寫層才會疊在正確方向。
+
 `lines.py` 會列出每頁每一行字的 y 範圍和 x 範圍，用來找空白區。`grid.py` 會把附圖切出來並加上座標格線，方便對準；附圖裡的線條位置最好再用程式偵測確認，肉眼讀格線容易差一行。
 
 ## 目前做過的詳解
@@ -45,6 +47,7 @@ python3 merge.py 題本.pdf overlay.pdf 輸出.pdf 2    # 2 = 手寫第一頁對
 | `exams/113-mathB` | 113 學年度學測 數學B（正式考題） | PDF 第 2–7 頁 |
 | `exams/111-E4-mathA` | 新北基 111 學年度學測聯合模擬考 數學A（掃描檔） | PDF 第 2–7 頁 |
 | `exams/111-E4-mathB` | 新北基 111 學年度學測聯合模擬考 數學B（掃描檔） | PDF 第 2–7 頁 |
+| `exams/112-1-taichung-mathA` | 臺中市立高中 112 學年度學測第一次聯合複習考 數學A（掃描檔，頁面帶 /Rotate） | PDF 第 2–7 頁 |
 
 ## 寫一份新的詳解
 

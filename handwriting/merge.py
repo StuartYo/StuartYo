@@ -4,6 +4,8 @@ doc = pymupdf.open(src); ov = pymupdf.open(overlay)
 print('overlay pages', ov.page_count, ov[0].rect, 'src', doc[0].rect)
 for i in range(ov.page_count):
     pg = doc[first - 1 + i]
+    if pg.rotation:          # scanned pages may carry /Rotate; bake it in so the overlay lands upright
+        pg.remove_rotation()
     pg.show_pdf_page(pg.rect, ov, i, overlay=True)
 doc.save(out, garbage=4, deflate=True)
 print('saved', out)
