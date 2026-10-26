@@ -59,20 +59,22 @@ const TRIG = [
   ['15 deg', 'frac(sqrt(6) - sqrt(2), 4)', 'frac(sqrt(6) + sqrt(2), 4)', '2 - sqrt(3)'],
   ['75 deg', 'frac(sqrt(6) + sqrt(2), 4)', 'frac(sqrt(6) - sqrt(2), 4)', '2 + sqrt(3)'],
 ];
-function numbers() {
+// quiz: hollow out every value except the trivial ones (√1, √4, √9, log 1, log 10)
+function numbers(quiz) {
+  const v = (x, hide) => `<td class="v${quiz && hide ? ' blank' : ''}"><span>${x}</span></td>`;
   const pairs = (list) => {
     const half = Math.ceil(list.length / 2);
     let body = '';
     for (let i = 0; i < half; i++) {
       const a = list[i], b = list[i + half];
-      body += `<tr><td class="k">${M(a[0])}</td><td class="v"><span>${M(a[1])}</span></td>`
-        + `<td class="k">${M(b[0])}</td><td class="v"><span>${M(b[1])}</span></td></tr>`;
+      body += `<tr><td class="k">${M(a[0])}</td>${v(M(a[1]), a[1].startsWith('approx'))}`
+        + `<td class="k">${M(b[0])}</td>${v(M(b[1]), b[1].startsWith('approx'))}</tr>`;
     }
     return `<table class="num">${body}</table>`;
   };
   const trig = `<table class="num trig"><tr><th></th><th>${M('sin')}</th><th>${M('cos')}</th><th>${M('tan')}</th></tr>`
     + TRIG.map((r) => `<tr><td class="k">${M(r[0])}</td>`
-      + r.slice(1).map((v) => `<td class="v"><span>${v === null ? '不存在' : M(v)}</span></td>`).join('') + '</tr>').join('')
+      + r.slice(1).map((x) => v(x === null ? '不存在' : M(x), true)).join('') + '</tr>').join('')
     + '</table>';
   return `<div class="nums"><div><h3>根號</h3>${pairs(SQRT)}</div><div><h3>常用對數</h3>${pairs(LOG)}</div>
 <div class="wide"><h3>特殊角</h3>${trig}</div>
@@ -120,8 +122,8 @@ table.num td.k { background: #f6f8fb; width: 20%; }
 .quiz-student td.h, .quiz-key td.h, .quiz-student h1 small, .quiz-key h1 small, .quiz-student .nums h3, .quiz-key .nums h3 { color: #000; }
 .quiz-student .tag, .quiz-key .tag { color: #000; border-color: #000; }
 .quiz-student table.num th, .quiz-key table.num th, .quiz-student table.num td.k, .quiz-key table.num td.k { background: #fff; color: #000; }
-.quiz-student tr.blank td.f > span { visibility: hidden; }
-.quiz-key tr.blank td.f { background: #d9d9d9; }
+.quiz-student tr.blank td.f > span, .quiz-student td.v.blank > span { visibility: hidden; }
+.quiz-key tr.blank td.f, .quiz-key table.num td.v.blank { background: #d9d9d9; }
 `;
 
 function page(title, label, version, chapters, withNumbers, blanks) {
@@ -129,7 +131,7 @@ function page(title, label, version, chapters, withNumbers, blanks) {
   return { n, html: `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>${title}・${label}</title>
 <style>${CSS}</style></head><body class="${version}">
 <h1>${title}<small>${label}</small></h1>
-${html}${withNumbers ? numbers() : ''}
+${html}${withNumbers ? numbers(!!blanks) : ''}
 </body></html>` };
 }
 
