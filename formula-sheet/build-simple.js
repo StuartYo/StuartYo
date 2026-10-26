@@ -4,7 +4,7 @@
 //   提示與公式用 hs-math 的 mathlite 語法（提示裡的數學式寫在 $…$ 內）。
 //   數學式用 <hs-math>/assets/mathlite.js 排版。資料檔不放在這個 repo。
 //   給了挖空清單（學測範圍的公式名稱陣列）時，改成只輸出學測範圍的填空測驗與解答：
-//   只有清單裡的公式挖空並依序編號，其他公式照常顯示，讓學生能對照上下列推回來。
+//   只有清單裡的公式挖空，其他公式照常顯示，讓學生能對照上下列推回來。這兩份是黑白版，方便影印。
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
@@ -28,16 +28,16 @@ const M = (s) => mathlite.render(s, true);
 const TAG = { A: '數A', B: '數B', 甲: '數甲', 乙: '數乙' };
 const tag = (t) => (t ? `<span class="tag t${t}">${TAG[t]}</span>` : '');
 
-// blanks: formula names to hollow out, numbered in sheet order
+// blanks: formula names to hollow out
 function table(chapters, blanks) {
-  let rows = '', n = 0, k = 0;
+  let rows = '', n = 0;
   for (const ch of chapters) {
     rows += `<tr class="chap"><td colspan="3">${ch.t}${tag(ch.tag)}</td></tr>`;
     for (const [name, hint, f, t] of ch.rows) {
       n++;
       const b = blanks && blanks.includes(name);
       rows += `<tr${b ? ' class="blank"' : ''}><td class="n">${name}${tag(t)}</td><td class="h">${T(hint || '')}</td>`
-        + `<td class="f">${b ? `<b class="no">${++k}</b>` : ''}<span>${M(f)}</span></td></tr>`;
+        + `<td class="f"><span>${M(f)}</span></td></tr>`;
     }
   }
   return { html: `<table class="main"><colgroup><col class="cn"><col class="ch"><col class="cf"></colgroup>
@@ -112,10 +112,16 @@ table.num td, table.num th { height: 9.5mm; text-align: center; }
 table.num th { background: #e8eef7; color: #1f4e8c; text-align: center; }
 table.num td.k { background: #f6f8fb; width: 20%; }
 .student td.f > span, .student td.v > span { visibility: hidden; }
-tr.blank td.f { background: #fff6dc; }
-.no { display: inline-block; min-width: 6mm; margin-right: 1.5mm; font-size: 9pt; color: #a35c00; }
+/* quiz copies are black and white for photocopying; the key greys the hollowed cells */
+.quiz-student, .quiz-key { color: #000; }
+.quiz-student th, .quiz-key th { background: #fff; color: #000; border: 0.6pt solid #000; border-bottom-width: 1.5pt; }
+.quiz-student td, .quiz-key td { border-color: #000; }
+.quiz-student tr.chap td, .quiz-key tr.chap td { background: #fff; color: #000; border-top-width: 1.2pt; }
+.quiz-student td.h, .quiz-key td.h, .quiz-student h1 small, .quiz-key h1 small, .quiz-student .nums h3, .quiz-key .nums h3 { color: #000; }
+.quiz-student .tag, .quiz-key .tag { color: #000; border-color: #000; }
+.quiz-student table.num th, .quiz-key table.num th, .quiz-student table.num td.k, .quiz-key table.num td.k { background: #fff; color: #000; }
 .quiz-student tr.blank td.f > span { visibility: hidden; }
-.quiz-key tr.blank td.f > span { color: #c0392b; }
+.quiz-key tr.blank td.f { background: #d9d9d9; }
 `;
 
 function page(title, label, version, chapters, withNumbers, blanks) {
@@ -137,7 +143,7 @@ ${html}${withNumbers ? numbers() : ''}
     ['學測範圍 公式表', data.gsat, true, 'gsat'],
     ['分科範圍 公式表', data.ast, false, 'ast'],
   ];
-  const versions = blanks ? [['quiz-student', `填空測驗（${blanks.length} 格）`], ['quiz-key', '填空解答']]
+  const versions = blanks ? [['quiz-student', `填空測驗（${blanks.length} 格）`], ['quiz-key', '填空解答（灰底為挖空）']]
     : [['teacher', '師用版'], ['student', '默寫版']];
   if (blanks) {
     const names = data.gsat.flatMap((ch) => ch.rows.map((r) => r[0]));
