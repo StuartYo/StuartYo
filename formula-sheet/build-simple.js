@@ -1,8 +1,10 @@
 // 精簡版公式表：一列一個公式（名稱｜符號提示｜公式），輸出師用版與學生默寫版 PDF。
-// 用法：node build-simple.js <資料.js> <hs-math 資料夾> <輸出資料夾>
+// 用法：node build-simple.js <資料.js> <hs-math 資料夾> <輸出資料夾> [挖空清單.json]
 //   資料.js 匯出 { gsat: [...], ast: [...] }，每章 { t: 章名, tag?, rows: [[名稱, 提示, 公式, 標籤?], ...] }，
 //   提示與公式用 hs-math 的 mathlite 語法（提示裡的數學式寫在 $…$ 內）。
 //   數學式用 <hs-math>/assets/mathlite.js 排版。資料檔不放在這個 repo。
+//   給了挖空清單（學測範圍的公式名稱陣列）時，改成只輸出學測範圍的填空測驗與解答：
+//   只有清單裡的公式挖空並依序編號，其他公式照常顯示，讓學生能對照上下列推回來。
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
@@ -10,10 +12,11 @@ const vm = require('vm');
 let chromium;
 try { ({ chromium } = require('playwright')); } catch { ({ chromium } = require('/opt/node22/lib/node_modules/playwright')); }
 
-const [dataFile, hsDir, outArg] = process.argv.slice(2);
+const [dataFile, hsDir, outArg, blanksFile] = process.argv.slice(2);
 if (!dataFile || !hsDir) { console.error('用法：node build-simple.js <資料.js> <hs-math 資料夾> <輸出資料夾>'); process.exit(1); }
 const outDir = path.resolve(outArg || path.join(__dirname, 'out'));
 const data = require(path.resolve(dataFile));
+const blanks = blanksFile ? JSON.parse(fs.readFileSync(blanksFile, 'utf8')) : null;
 
 const ctx = { window: {} };
 vm.createContext(ctx);
@@ -25,13 +28,16 @@ const M = (s) => mathlite.render(s, true);
 const TAG = { A: '數A', B: '數B', 甲: '數甲', 乙: '數乙' };
 const tag = (t) => (t ? `<span class="tag t${t}">${TAG[t]}</span>` : '');
 
-function table(chapters) {
-  let rows = '', n = 0;
+// blanks: formula names to hollow out, numbered in sheet order
+function table(chapters, blanks) {
+  let rows = '', n = 0, k = 0;
   for (const ch of chapters) {
     rows += `<tr class="chap"><td colspan="3">${ch.t}${tag(ch.tag)}</td></tr>`;
     for (const [name, hint, f, t] of ch.rows) {
       n++;
-      rows += `<tr><td class="n">${name}${tag(t)}</td><td class="h">${T(hint || '')}</td><td class="f"><span>${M(f)}</span></td></tr>`;
+      const b = blanks && blanks.includes(name);
+      rows += `<tr${b ? ' class="blank"' : ''}><td class="n">${name}${tag(t)}</td><td class="h">${T(hint || '')}</td>`
+        + `<td class="f">${b ? `<b class="no">${++k}</b>` : ''}<span>${M(f)}</span></td></tr>`;
     }
   }
   return { html: `<table class="main"><colgroup><col class="cn"><col class="ch"><col class="cf"></colgroup>
@@ -106,10 +112,14 @@ table.num td, table.num th { height: 9.5mm; text-align: center; }
 table.num th { background: #e8eef7; color: #1f4e8c; text-align: center; }
 table.num td.k { background: #f6f8fb; width: 20%; }
 .student td.f > span, .student td.v > span { visibility: hidden; }
+tr.blank td.f { background: #fff6dc; }
+.no { display: inline-block; min-width: 6mm; margin-right: 1.5mm; font-size: 9pt; color: #a35c00; }
+.quiz-student tr.blank td.f > span { visibility: hidden; }
+.quiz-key tr.blank td.f > span { color: #c0392b; }
 `;
 
-function page(title, label, version, chapters, withNumbers) {
-  const { html, n } = table(chapters);
+function page(title, label, version, chapters, withNumbers, blanks) {
+  const { html, n } = table(chapters, blanks);
   return { n, html: `<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><title>${title}・${label}</title>
 <style>${CSS}</style></head><body class="${version}">
 <h1>${title}<small>${label}</small></h1>
@@ -123,19 +133,26 @@ ${html}${withNumbers ? numbers() : ''}
   fs.copyFileSync(path.join(__dirname, 'node_modules/@fontsource/stix-two-math/files/stix-two-math-latin-400-normal.woff2'),
     path.join(outDir, 'fonts/STIXTwoMath.woff2'));
   const browser = await chromium.launch();
-  const jobs = [
+  const jobs = blanks ? [['學測範圍 公式表', data.gsat, true, 'gsat']] : [
     ['學測範圍 公式表', data.gsat, true, 'gsat'],
     ['分科範圍 公式表', data.ast, false, 'ast'],
   ];
+  const versions = blanks ? [['quiz-student', `填空測驗（${blanks.length} 格）`], ['quiz-key', '填空解答']]
+    : [['teacher', '師用版'], ['student', '默寫版']];
+  if (blanks) {
+    const names = data.gsat.flatMap((ch) => ch.rows.map((r) => r[0]));
+    const bad = blanks.filter((b) => names.filter((x) => x === b).length !== 1);
+    if (bad.length) { console.error('挖空清單裡找不到（或重複）的公式：' + bad.join('、')); process.exit(1); }
+  }
   for (const [title, chapters, withNumbers, key] of jobs) {
-    for (const [version, label] of [['teacher', '師用版'], ['student', '默寫版']]) {
-      const { html, n } = page(title, label, version, chapters, withNumbers);
+    for (const [version, label] of versions) {
+      const { html, n } = page(title, label, version, chapters, withNumbers, blanks);
       const htmlPath = path.join(outDir, `${key}-${version}.html`);
       fs.writeFileSync(htmlPath, html);
       const p = await browser.newPage();
       await p.goto('file://' + htmlPath);
       await p.evaluate(() => document.fonts.ready);
-      const file = `${title.replace(' ', '')}-${label}.pdf`;
+      const file = `${title.replace(' ', '')}-${label.replace(/（.*）/, '')}.pdf`;
       await p.pdf({
         path: path.join(outDir, file), format: 'A4', printBackground: true, preferCSSPageSize: true,
         displayHeaderFooter: true, headerTemplate: '<div></div>',
