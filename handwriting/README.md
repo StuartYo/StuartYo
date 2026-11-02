@@ -50,6 +50,7 @@ python3 merge.py 題本.pdf overlay.pdf 輸出.pdf 2    # 2 = 手寫第一頁對
 | `exams/112-1-taichung-mathA` | 臺中市立高中 112 學年度學測第一次聯合複習考 數學A（掃描檔，頁面帶 /Rotate） | PDF 第 2–7 頁 |
 | `exams/111-nanyi-4-mathA` | 南一 111 學年度學測第四次聯合模擬考 數學A（掃描檔，頁面帶 /Rotate） | PDF 第 2–7 頁 |
 | `exams/110-hanlin-E4-mathA` | 翰林 110 學年度學測 E4 全國模擬考 數學A（掃描檔，解答另一檔） | PDF 第 2–7 頁 |
+| `exams/113-nanyi-4-mathA` | 南一 113 學年度學測第四次聯合模擬考 數學A（掃描檔） | PDF 第 2–9 頁 |
 
 ## 寫一份新的詳解
 
